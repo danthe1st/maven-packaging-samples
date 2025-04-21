@@ -46,7 +46,7 @@ jobs:
         java-version: '21'
         cache: 'maven'
     - name: Compile and package
-      run: mvn package
+      run: mvn package -Penable-native-image
     - name: Run projects
       run: |
         jlink/target/maven-jlink/default/bin/run
