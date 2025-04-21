@@ -35,7 +35,13 @@ jobs:
   platform-dependent:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+        - os: ubuntu-latest
+          os_name: linux
+        - os: windows-latest
+          os_name: windows
+        - os: macos-latest
+          os_name: macos
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
@@ -59,7 +65,7 @@ jobs:
     - name: Upload native-image
       uses: actions/upload-artifact@v4
       with:
-        name: native-image-${{ matrix.os }}
+        name: native-image-${{ matrix.os_name }}
         path: |
           native-image/target/native-image
           native-image/target/native-image.exe
