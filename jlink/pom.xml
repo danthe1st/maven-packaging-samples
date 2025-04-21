@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.danthe1st.mavenpackaging</groupId>
+	<artifactId>jlink</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jlink</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>lib</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>21</release>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jlink-plugin</artifactId>
+				<version>3.2.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<launcher>run=packaging.jlink/io.github.danthe1st.mavenpackaging.jlink.JlinkMain</launcher>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

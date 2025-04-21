@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.danthe1st.mavenpackaging</groupId>
+	<artifactId>maven-packaging-samples</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Maven Packaging samples</name>
+	<packaging>pom</packaging>
+	<modules>
+		<module>lib</module>
+		<module>multijar</module>
+		<module>jlink</module>
+		<module>fat-jar</module>
+	</modules>
+	<profiles>
+		<profile>
+			<!-- The native-image module is included if and only if the used JDK is GraalVM -->
+			<id>enable-native-image</id>
+			<activation>
+				<file>
+					<exists>${java.home}/GRAALVM-README.md</exists>
+				</file>
+			</activation>
+			<modules>
+				<module>lib</module>
+				<module>multijar</module>
+				<module>jlink</module>
+				<module>fat-jar</module>
+				<module>native-image</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

@@ -1,0 +1,63 @@
+name: Build
+on: [push]
+jobs:
+  platform-independent:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Graal JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        cache: 'maven'
+    - name: Compile and package
+      run: mvn package
+    - name: Run projects
+      run: |
+        java -jar multijar/target/multijar-*.jar
+        java -jar fat-jar/target/fat-jar-*jar-with-dependencies.jar
+    - name: Upload multijar
+      uses: actions/upload-artifact@v4
+      with:
+        name: multijar
+        path: |
+          multijar/target/multijar-*.jar
+          multijar/target/dependency/
+    - name: Upload fat JAR
+      uses: actions/upload-artifact@v4
+      with:
+        name: fat-jar
+        path: fat-jar/target/fat-jar-*jar-with-dependencies.jar
+  platform-dependent:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Graal JDK
+      uses: graalvm/setup-graalvm@v1
+      with:
+        distribution: 'graalvm-community'
+        java-version: '21'
+        cache: 'maven'
+    - name: Compile and package
+      run: mvn package
+    - name: Run projects
+      run: |
+        jlink/target/maven-jlink/default/bin/run
+        native-image/target/native-image
+    - name: Upload jlink
+      uses: actions/upload-artifact@v4
+      with:
+        name: jlink-${{ matrix.os }}
+        path: jlink/target/jlink-*.zip
+    - name: Upload native-image
+      uses: actions/upload-artifact@v4
+      with:
+        name: native-image-${{ matrix.os }}
+        path: native-image/target/native-image
