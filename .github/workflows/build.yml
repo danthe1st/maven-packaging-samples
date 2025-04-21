@@ -60,4 +60,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: native-image-${{ matrix.os }}
-        path: native-image/target/native-image
+        path: |
+          native-image/target/native-image
+          native-image/target/native-image.exe
