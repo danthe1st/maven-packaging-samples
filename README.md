@@ -5,6 +5,7 @@ This repository contains example projects that illustrate ways to package Java a
 The [lib](lib) project contains a dependency which is used by the other projects.
 
 |project|description|JPMS|requires JRE|platform independent|
+|---|---|---|---|---|
 |multijar|multiple JAR files|supported|yes|yes|
 |jlink|bundles minimal JRE with application|required|no|no|
 |fat-jar|single JAR with all dependencies|not supported|yes|yes|
