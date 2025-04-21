@@ -33,7 +33,7 @@
 							<goal>compile</goal>
 						</goals>
 						<configuration>
-							<mainClass>io.github.danthe1st.mavenpackaging.nativeimage.NativeImageMain</mainClass>
+							<mainClass>packaging.nativeimage/io.github.danthe1st.mavenpackaging.nativeimage.NativeImageMain</mainClass>
 						</configuration>
 					</execution>
 				</executions>
