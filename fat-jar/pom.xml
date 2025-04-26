@@ -37,9 +37,9 @@
 								<ref>jar-with-dependencies</ref>
 							</descriptorRefs>
 							<archive>
-							<manifest>
-								<mainClass>io.github.danthe1st.mavenpackaging.assembly.AssemblyMain</mainClass>
-							</manifest>
+								<manifest>
+									<mainClass>io.github.danthe1st.mavenpackaging.fatjar.FatJarMain</mainClass>
+								</manifest>
 							</archive>
 						</configuration>
 					</execution>

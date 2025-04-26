@@ -11,3 +11,22 @@ The `jlink` tool uses the module descriptor (`module-info.java`) to figure out w
 - This packaging format is platform-dependent.
 - The application must have a valid module descriptor (`module-info.java`).
 - Using jlink results in multiple files needing to be distributed.
+
+### Description
+
+The `jlink` tool can create runtime images containing only the modules declared in the module descriptor (`module-info.java`) of the application and its dependencies. The generated runtime image is based on the JDK it has been built with.
+
+```
+$ ./target/maven-jlink/default/bin/java --list-modules
+java.base@24
+packaging.jlink
+packaging.lib@0.0.1-SNAPSHOT
+```
+
+In this project, the `jlink` tool is configured to include a launcher named `run` that runs the application:
+```
+$ ./target/maven-jlink/default/bin/run 
+Hello World
+```
+
+The `maven-jlink-plugin` adds the `jlink` packaging which creates such a runtime image.

@@ -31,3 +31,4 @@ Libraries should be packaged as thin JARs (which is the default in Maven, see [l
 This repository does not include include the following packaging methods for applications:
 - `jpackage`: This is similar to jlink but creates a single executable which installs a minimal JRE and the application
 - nested JAR files: It is possible to distribute applications as a single JAR file containing the JAR files of dependencies instead of extracting them. This combines the advantages of [having the dependencies in a subdirectory](./multijar) and [fat JARs](./fat-jar) (including the option to use JPMS). 
+- Framework specific packaging: Frameworks like Spring Boot sometimes have their own ways of packaging applications.

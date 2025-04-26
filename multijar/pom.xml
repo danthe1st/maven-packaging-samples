@@ -26,6 +26,7 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
+						<?m2e ignore?> <!-- Skip this execution in m2e builds as these are not for packaging -->
 						<id>copy-dependencies</id>
 						<phase>package</phase>
 						<goals>
