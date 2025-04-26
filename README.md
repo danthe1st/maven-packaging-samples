@@ -12,6 +12,7 @@ The following table outlines the differences between the packaging methods. The 
 |[jlink](./jlink)|bundles minimal JRE with application|required|no|no|
 |[fat-jar](./fat-jar)|single JAR with all dependencies|not supported|yes|yes|
 |[native-image](./native-image)|single native OS executable|supported\*|no|no|
+|[exploded](./exploded)|unpacked classes|supported|yes|yes|
 
 \* While native-image supports JPMS, using it with the `native-maven-plugin` requires additional configuration.
 

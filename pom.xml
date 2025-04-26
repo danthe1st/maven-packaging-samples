@@ -12,6 +12,7 @@
 		<module>multijar</module>
 		<module>jlink</module>
 		<module>fat-jar</module>
+		<module>exploded</module>
 	</modules>
 	<profiles>
 		<profile>
@@ -27,6 +28,7 @@
 				<module>multijar</module>
 				<module>jlink</module>
 				<module>fat-jar</module>
+				<module>exploded</module>
 				<module>native-image</module>
 			</modules>
 		</profile>

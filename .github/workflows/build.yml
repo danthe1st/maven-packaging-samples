@@ -20,18 +20,24 @@ jobs:
       run: |
         java -jar multijar/target/multijar-*.jar
         java -jar fat-jar/target/fat-jar-*jar-with-dependencies.jar
+		java -p exploded/target/app -m packaging.exploded/io.github.danthe1st.mavenpackaging.exploded.ExplodedMain
     - name: Upload multijar
       uses: actions/upload-artifact@v4
       with:
         name: multijar
         path: |
           multijar/target/multijar-*.jar
-          multijar/target/dependency/
+          multijar/target/app/
     - name: Upload fat JAR
       uses: actions/upload-artifact@v4
       with:
         name: fat-jar
         path: fat-jar/target/fat-jar-*jar-with-dependencies.jar
+	- name: Upload exploded archive
+	  uses: actions/upload-artifact@v4
+	  with:
+	    name: exploded
+	    path: exploded/target/app
   platform-dependent:
     strategy:
       matrix:
