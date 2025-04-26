@@ -6,13 +6,13 @@ The sample projects include the [lib](./lib) dependency which is a "normal" `jar
 
 The following table outlines the differences between the packaging methods. The JPMS column shows whether JPMS (using a module-info.java) is supported and whether it is necessary to use JPMS.
 
-|project|description|JPMS|requires JRE|platform independent|
-|---|---|---|---|---|
-|[multijar](./multijar)|multiple JAR files|supported|yes|yes|
-|[jlink](./jlink)|bundles minimal JRE with application|required|no|no|
-|[fat-jar](./fat-jar)|single JAR with all dependencies|not supported|yes|yes|
-|[native-image](./native-image)|single native OS executable|supported\*|no|no|
-|[exploded](./exploded)|unpacked classes|supported|yes|yes|
+|project                       |description                         |JPMS         |Java runtime|platform independent|
+|:-----------------------------|:-----------------------------------|:------------|:-----------|:-------------------|
+|[multijar](./multijar)        |multiple JAR files                  |supported    |required    |yes                 |
+|[jlink](./jlink)              |bundles minimal JRE with application|required     |included    |no                  |
+|[fat-jar](./fat-jar)          |single JAR with all dependencies    |not supported|required    |yes                 |
+|[native-image](./native-image)|single native OS executable         |supported\*  |not needed  |no                  |
+|[exploded](./exploded)        |unpacked classes                    |supported    |required    |yes                 |
 
 \* While native-image supports JPMS, using it with the `native-maven-plugin` requires additional configuration.
 
