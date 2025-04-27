@@ -70,8 +70,8 @@ jobs:
         jlink/target/maven-jlink/default/bin/run
         native-image/target/native-image
         ls jpackage/target/package
-        $jpackage_install
-        $jpackage_run
+        bash -c "$jpackage_install"
+        bash -c "$jpackage_run""
     - name: Upload jlink
       uses: actions/upload-artifact@v4
       with:
