@@ -52,7 +52,7 @@ jobs:
           jpackage_run: ./app/bin/app.exe
         - os: macos-latest
           os_name: macos
-          jpackage_install: hdiutil attach ./jpackage/target/package/app_0.0.1-SNAPSHOT_amd64.dmg && ls /Volumes && find /Volumes/app*
+          jpackage_install: hdiutil attach ./jpackage/target/package/app_1.0.0.dmg && ls /Volumes && find /Volumes/app*
           jpackage_run: /Volumes/app/bin/app
     runs-on: ${{ matrix.os }}
     steps:
@@ -84,8 +84,8 @@ jobs:
         path: |
           native-image/target/native-image
           native-image/target/native-image.exe
-    - name: Upload native-image
+    - name: Upload jpackage
       uses: actions/upload-artifact@v4
       with:
-        name: native-image-${{ matrix.os_name }}
+        name: jpackage-${{ matrix.os_name }}
         path: jpackage/target/package/*
