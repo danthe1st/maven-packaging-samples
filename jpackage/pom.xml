@@ -78,7 +78,6 @@
 						<configuration>
 							<winConsole>true</winConsole>
 							<type>MSI</type>
-							<winPerUserInstall>true</winPerUserInstall>
 						</configuration>
 					</plugin>
 				</plugins>
