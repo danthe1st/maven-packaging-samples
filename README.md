@@ -13,6 +13,7 @@ The following table outlines the differences between the packaging methods. The 
 |[fat-jar](./fat-jar)          |single JAR with all dependencies    |not supported|required    |yes                 |
 |[native-image](./native-image)|single native OS executable         |supported\*  |not needed  |no                  |
 |[exploded](./exploded)        |unpacked classes                    |supported    |required    |yes                 |
+|[jpackage](./jpackage)        |installer                           |supported    |included    |no                  |
 
 \* While native-image supports JPMS, using it with the `native-maven-plugin` requires additional configuration.
 
