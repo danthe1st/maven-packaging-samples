@@ -44,15 +44,15 @@ jobs:
         include:
         - os: ubuntu-latest
           os_name: linux
-          jpackage_install: sudo apt install ./jpackage/target/package/app_0.0.1-SNAPSHOT_amd64.deb
+          jpackage_install: sudo apt install ./jpackage/target/package/app_1.0.0_amd64.deb
           jpackage_run: /opt/app/bin/app
         - os: windows-latest
           os_name: windows
-          jpackage_install: msiexec TARGETDIR="./app" ./jpackage/target/package/app_0.0.1-SNAPSHOT_amd64.msi && find app
+          jpackage_install: msiexec TARGETDIR="./app" ./jpackage/target/package/app_1.0.0_amd64.msi && find app
           jpackage_run: ./app/bin/app.exe
         - os: macos-latest
           os_name: macos
-          jpackage_install: hdiutil attach ./jpackage/target/package/app-1.0.0.dmg && ls /Volumes && find /Volumes/app*
+          jpackage_install: hdiutil attach ./jpackage/target/package/app-1.0.0.dmg
           jpackage_run:  /Volumes/app/app.app/Contents/MacOS/app
     runs-on: ${{ matrix.os }}
     steps:
@@ -65,12 +65,13 @@ jobs:
         cache: 'maven'
     - name: Compile and package
       run: mvn package -Penable-native-image
+    - name: Install jpackage
+      run: ${{ matrix.jpackage_install }}
     - name: Run projects
       run: |
         jlink/target/maven-jlink/default/bin/run
         native-image/target/native-image
         ls jpackage/target/package
-        ${{ matrix.jpackage_install }}
         ${{ matrix.jpackage_run }}
     - name: Upload jlink
       uses: actions/upload-artifact@v4
