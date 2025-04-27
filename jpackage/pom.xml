@@ -72,7 +72,9 @@
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.panteleyev</groupId>
 						<artifactId>jpackage-maven-plugin</artifactId>
+						<version>1.6.4</version>
 						<configuration>
 							<winConsole>true</winConsole>
 							<type>msi</type>
