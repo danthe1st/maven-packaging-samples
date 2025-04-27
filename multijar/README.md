@@ -27,3 +27,5 @@ While running this packaged application via `java -jar` is possible, this result
 ```bash
 java -p target/:target/dependency/ -m packaging.multijar
 ```
+
+Distributing applications as multiple JARs (possibly in a `.zip` or `.tar.gz` file) can be useful for applications making use of JPMS modules that require a full JDK (e.g. for a plugin system) or are deployed in environments that have a JDK/JRE already. This deployment is the closest to how applications are typically executed during development (with the JAR files being located in the Maven repository and resolved using build tools and IDEs).

@@ -21,5 +21,7 @@ Applications using `native-image` are compiled to native executables eliminating
 
 The `native:compile` goal creates a native executable in `target/<executable name>`, in this case `target/native-image`. This process can take a while, especially for bigger projects with many dependencies. This uses the `native-image` tool which is provided by GraalVM (but not available with other JDKs).
 
+`native-image` is commonly used for compiling applications that run in memory-constrained environments, where memory is costly or where fast startup is critical. This is commonly the case in Cloud environments, where applications should be able to scale fast and deployment is billed by used resources.
+
 While `native-image` can provide significant improvements with respect to startup and warmup time as well as memory consumption, it makes use of a closed-world assumption for doing that. It analyzes the program to figure out which parts are actually used, eliminates parts that are not used and compiles the application to a native binary. This limits some of the dynamic capabilities Java would otherwise provide.
 Correctly setting up the configuration to correctly identify what is used and what is not can be a complicated process for nontrivial projects, especially when dependencies are used which do not support `native-image`.

@@ -18,6 +18,8 @@ Doing so extracts all dependencies into one JAR which one can then run using the
 Fat JARs or Uber-JARs include dependencies along with the compiled code.
 The `assembly:single` goal is configured to use the built-in `jar-with-dependencies` descriptor to [build an executable JAR](https://maven.apache.org/plugins/maven-assembly-plugin/usage.html#creating-an-executable-jar).
 
+Fat JARs are often used when the developers want to distribute their application as a single file which is the same for all operating systems/platforms.
+
 The resulting JAR file has the following structure on this project:
 ```
 $ jar tf target/fat-jar-0.0.1-SNAPSHOT-jar-with-dependencies.jar | tree --fromfile /dev/stdin | tail -n +2

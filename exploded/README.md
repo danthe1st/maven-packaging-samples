@@ -19,6 +19,8 @@ This version puts each artifact in its own directory but this can be configured 
 Exploded means that the application is not packaged using JAR files but the classes are on the file system using the hierarchical package structure.
 In this module, the dependencies are unpacked in subdirectories (one directory per artifact) of `target/app` by the `maven-dependency-plugin`. The `maven-resources-plugin` is then used in order to copy the classes of the application to `target/app/app`.
 
+An exploded structure is oftenused in server applications packaged as Docker images to allow for fast startup.
+
 ```
 $ tree target/app/
 target/app/

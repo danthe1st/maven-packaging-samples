@@ -23,6 +23,8 @@ packaging.jlink
 packaging.lib@0.0.1-SNAPSHOT
 ```
 
+This packaging format is commonly used for (containerized) server applications which do not require a full JDK to run. In many cases, a runtime image created with `jlink` is preferable over requiring users to install a JRE.
+
 In this project, the `jlink` tool is configured to include a launcher named `run` that runs the application:
 ```
 $ ./target/maven-jlink/default/bin/run 
