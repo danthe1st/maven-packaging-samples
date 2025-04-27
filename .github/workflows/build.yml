@@ -53,7 +53,7 @@ jobs:
         - os: macos-latest
           os_name: macos
           jpackage_install: hdiutil attach ./jpackage/target/package/app-1.0.0.dmg && ls /Volumes && find /Volumes/app*
-          jpackage_run: /Volumes/app/app.app
+          jpackage_run:  /Volumes/app/app.app/Contents/MacOS/app
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
