@@ -48,7 +48,7 @@ jobs:
           jpackage_run: /opt/myapp/bin/myapp
         - os: windows-latest
           os_name: windows
-          jpackage_install: 'msiexec ./jpackage/target/package/myapp_1.0.0_amd64.msi && ls "C:\\Program Files"'
+          jpackage_install: "msiexec jpackage\\target\\package\\myapp_1.0.0_amd64.msi"
           jpackage_run: ". C:\\Program Files\\myapp\\bin\\app.exe"
         - os: macos-latest
           os_name: macos
