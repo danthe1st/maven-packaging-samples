@@ -52,7 +52,7 @@ jobs:
           jpackage_run: ./app/bin/app.exe
         - os: macos-latest
           os_name: macos
-          jpackage_install: hdiutil attach ./jpackage/target/package/app_1.0.0.dmg && ls /Volumes && find /Volumes/app*
+          jpackage_install: hdiutil attach ./jpackage/target/package/app-1.0.0.dmg && ls /Volumes && find /Volumes/app*
           jpackage_run: /Volumes/app/bin/app
     runs-on: ${{ matrix.os }}
     steps:
