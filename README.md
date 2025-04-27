@@ -10,10 +10,10 @@ The following table outlines the differences between the packaging methods. The 
 |:-----------------------------|:-----------------------------------|:------------|:-----------|:-------------------|
 |[multijar](./multijar)        |multiple JAR files                  |supported    |required    |yes                 |
 |[jlink](./jlink)              |bundles minimal JRE with application|required     |included    |no                  |
+|[jpackage](./jpackage)        |installer                           |supported    |included    |no                  |
 |[fat-jar](./fat-jar)          |single JAR with all dependencies    |not supported|required    |yes                 |
 |[native-image](./native-image)|single native OS executable         |supported\*  |not needed  |no                  |
 |[exploded](./exploded)        |unpacked classes                    |supported    |required    |yes                 |
-|[jpackage](./jpackage)        |installer                           |supported    |included    |no                  |
 
 \* While native-image supports JPMS, using it with the `native-maven-plugin` requires additional configuration.
 
@@ -31,6 +31,5 @@ Libraries should be packaged as thin JARs (which is the default in Maven, see [l
 ### Notable alternatives not included
 
 This repository does not include include the following packaging methods for applications:
-- `jpackage`: This is similar to jlink but creates a single executable which installs a minimal JRE and the application
 - nested JAR files: It is possible to distribute applications as a single JAR file containing the JAR files of dependencies instead of extracting them. This combines the advantages of [having the dependencies in a subdirectory](./multijar) and [fat JARs](./fat-jar) (including the option to use JPMS). 
 - Framework specific packaging: Frameworks like Spring Boot sometimes have their own ways of packaging applications.
