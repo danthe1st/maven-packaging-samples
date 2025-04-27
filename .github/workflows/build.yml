@@ -49,7 +49,7 @@ jobs:
         - os: windows-latest
           os_name: windows
           jpackage_install: Start-Process msiexec.exe -Wait -ArgumentList '/quiet /i jpackage\\target\\package\\myapp-1.0.0.msi'
-          jpackage_run: 'ls $env:LOCALAPPDATA ; ls "C:\\Program Files" ; . "$env:LOCALAPPDATA\\myapp\\bin\\app.exe"'
+          jpackage_run: '. "$env:LOCALAPPDATA\\myapp\\app.exe"'
         - os: macos-latest
           os_name: macos
           jpackage_install: hdiutil attach ./jpackage/target/package/myapp-1.0.0.dmg
