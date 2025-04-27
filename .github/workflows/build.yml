@@ -44,16 +44,16 @@ jobs:
         include:
         - os: ubuntu-latest
           os_name: linux
-          jpackage_install: sudo apt install ./jpackage/target/package/app_1.0.0_amd64.deb
-          jpackage_run: /opt/app/bin/app
+          jpackage_install: sudo apt install -y ./jpackage/target/package/myapp_1.0.0_amd64.deb
+          jpackage_run: /opt/myapp/bin/myapp
         - os: windows-latest
           os_name: windows
-          jpackage_install: msiexec TARGETDIR="./app" ./jpackage/target/package/app_1.0.0_amd64.msi && find app
+          jpackage_install: msiexec TARGETDIR="./app" ./jpackage/target/package/myapp_1.0.0_amd64.msi && find app
           jpackage_run: ./app/bin/app.exe
         - os: macos-latest
           os_name: macos
-          jpackage_install: hdiutil attach ./jpackage/target/package/app-1.0.0.dmg
-          jpackage_run:  /Volumes/app/app.app/Contents/MacOS/app
+          jpackage_install: hdiutil attach ./jpackage/target/package/myapp-1.0.0.dmg
+          jpackage_run:  /Volumes/myapp/myapp.app/Contents/MacOS/myapp
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
@@ -71,7 +71,6 @@ jobs:
       run: |
         jlink/target/maven-jlink/default/bin/run
         native-image/target/native-image
-        ls jpackage/target/package
         ${{ matrix.jpackage_run }}
     - name: Upload jlink
       uses: actions/upload-artifact@v4
