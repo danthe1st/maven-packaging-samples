@@ -49,6 +49,7 @@
 							<module>packaging.jpackage/io.github.danthe1st.mavenpackaging.jpackage.JpackageMain</module>
 							<destination>${project.build.directory}/package</destination>
 							<name>app</name>
+							<appVersion>0.0.1</appVersion>
 							<modulePaths>
 								<modulePath>${project.build.directory}/dependency</modulePath>
 								<modulePath>${project.build.outputDirectory}</modulePath>
@@ -76,7 +77,6 @@
 							<winConsole>true</winConsole>
 							<type>msi</type>
 							<winPerUserInstall>true</winPerUserInstall>
-							<appVersion>0.0.1</appVersion>
 						</configuration>
 					</plugin>
 				</plugins>
