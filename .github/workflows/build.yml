@@ -69,7 +69,7 @@ jobs:
       run: |
         jlink/target/maven-jlink/default/bin/run
         native-image/target/native-image
-        ls package/target/package
+        ls jpackage/target/package
         $jpackage_install
         $jpackage_run
     - name: Upload jlink
