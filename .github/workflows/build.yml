@@ -48,8 +48,8 @@ jobs:
           jpackage_run: /opt/myapp/bin/myapp
         - os: windows-latest
           os_name: windows
-          jpackage_install: msiexec TARGETDIR="./app" ./jpackage/target/package/myapp_1.0.0_amd64.msi && tree app
-          jpackage_run: ./app/bin/app.exe
+          jpackage_install: msiexec TARGETDIR="D:\app" ./jpackage/target/package/myapp_1.0.0_amd64.msi && tree D:\app
+          jpackage_run: D:\app\bin\app.exe
         - os: macos-latest
           os_name: macos
           jpackage_install: hdiutil attach ./jpackage/target/package/myapp-1.0.0.dmg
