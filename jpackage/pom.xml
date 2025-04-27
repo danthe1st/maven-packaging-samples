@@ -49,7 +49,7 @@
 							<module>packaging.jpackage/io.github.danthe1st.mavenpackaging.jpackage.JpackageMain</module>
 							<destination>${project.build.directory}/package</destination>
 							<name>app</name>
-							<appVersion>0.0.1</appVersion>
+							<appVersion>1.0.0</appVersion>
 							<modulePaths>
 								<modulePath>${project.build.directory}/dependency</modulePath>
 								<modulePath>${project.build.outputDirectory}</modulePath>
