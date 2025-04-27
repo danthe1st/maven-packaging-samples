@@ -49,7 +49,7 @@ jobs:
         - os: windows-latest
           os_name: windows
           jpackage_install: "msiexec /i jpackage\\target\\package\\myapp-1.0.0.msi"
-          jpackage_run: '. "C:\\Program Files\\myapp\\bin\\app.exe"'
+          jpackage_run: 'ls $env:LOCALAPPDATA ; ls "C:\\Program Files" ; . "C:\\Program Files\\myapp\\bin\\app.exe"'
         - os: macos-latest
           os_name: macos
           jpackage_install: hdiutil attach ./jpackage/target/package/myapp-1.0.0.dmg
