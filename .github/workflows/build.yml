@@ -44,10 +44,16 @@ jobs:
         include:
         - os: ubuntu-latest
           os_name: linux
+          jpackage_install: sudo apt install ./jpackage/target/package/app_0.0.1-SNAPSHOT_amd64.deb
+          jpackage_run: /opt/app/bin/app
         - os: windows-latest
           os_name: windows
+          jpackage_install: msiexec TARGETDIR="./app" ./jpackage/target/package/app_0.0.1-SNAPSHOT_amd64.msi && find app
+          jpackage_run: ./app/bin/app.exe
         - os: macos-latest
           os_name: macos
+          jpackage_install: hdiutil attach ./jpackage/target/package/app_0.0.1-SNAPSHOT_amd64.dmg && ls /Volumes && find /Volumes/app*
+          jpackage_run: /Volumes/app/bin/app
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
@@ -63,6 +69,9 @@ jobs:
       run: |
         jlink/target/maven-jlink/default/bin/run
         native-image/target/native-image
+        ls package/target/package
+        $jpackage_install
+        $jpackage_run
     - name: Upload jlink
       uses: actions/upload-artifact@v4
       with:
@@ -75,3 +84,8 @@ jobs:
         path: |
           native-image/target/native-image
           native-image/target/native-image.exe
+    - name: Upload native-image
+      uses: actions/upload-artifact@v4
+      with:
+        name: native-image-${{ matrix.os_name }}
+        path: jpackage/target/package/*
