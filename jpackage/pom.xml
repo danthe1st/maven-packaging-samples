@@ -48,7 +48,7 @@
 						<configuration>
 							<module>packaging.jpackage/io.github.danthe1st.mavenpackaging.jpackage.JpackageMain</module>
 							<destination>${project.build.directory}/package</destination>
-							<name>app</name>
+							<name>myapp</name>
 							<appVersion>1.0.0</appVersion>
 							<modulePaths>
 								<modulePath>${project.build.directory}/dependency</modulePath>
