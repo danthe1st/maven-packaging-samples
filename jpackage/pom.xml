@@ -76,6 +76,7 @@
 							<winConsole>true</winConsole>
 							<type>msi</type>
 							<winPerUserInstall>true</winPerUserInstall>
+							<appVersion>0.0.1</appVersion>
 						</configuration>
 					</plugin>
 				</plugins>
