@@ -25,3 +25,5 @@ The `native:compile` goal creates a native executable in `target/<executable nam
 
 While `native-image` can provide significant improvements with respect to startup and warmup time as well as memory consumption, it makes use of a closed-world assumption for doing that. It analyzes the program to figure out which parts are actually used, eliminates parts that are not used and compiles the application to a native binary. This limits some of the dynamic capabilities Java would otherwise provide.
 Correctly setting up the configuration to correctly identify what is used and what is not can be a complicated process for nontrivial projects, especially when dependencies are used which do not support `native-image`.
+
+One thing to note is that building native images can take a significant amount of time. Because of that, it is often better to not bind that process to the `package` phase and only build the image when actually building such an executable (by running `mvn native:compile` or `native:test`) when needed. It is also possible to use a Maven `<profile>` for this and activate it with `-Pnative` or similar.
