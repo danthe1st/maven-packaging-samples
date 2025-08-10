@@ -19,8 +19,6 @@ jobs:
     - name: Run projects
       run: |
         java -jar multijar/target/multijar-*.jar
-      # run with modules
-      # java -p "$(echo multijar/target/multijar-*.jar multijar/target/dependency/*.jar|sed 's/ /:/g')" -m packaging.multijar
         java -jar fat-jar/target/fat-jar-*jar-with-dependencies.jar
         java -p exploded/target/app -m packaging.exploded/io.github.danthe1st.mavenpackaging.exploded.ExplodedMain
         java -jar jar-in-jar/target/jar-in-jar-*-executable.jar
