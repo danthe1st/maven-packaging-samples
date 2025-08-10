@@ -5,6 +5,7 @@ The `MANIFEST.MF` of the JAR references that directory to allow it being execute
 
 - Using multiple JARs works both with and without JPMS.
 - This packaging method is platform-independent.
+- All dependency JARs are preserved as-is including signatures and metadata.
 
 ### Disadvantages
 
