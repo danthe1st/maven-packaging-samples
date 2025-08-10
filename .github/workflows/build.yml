@@ -75,7 +75,7 @@ jobs:
     - name: Upload jlink
       uses: actions/upload-artifact@v4
       with:
-        name: jlink-${{ matrix.os }}
+        name: jlink-${{ matrix.os_name }}
         path: jlink/target/jlink-*.zip
     - name: Upload native-image
       uses: actions/upload-artifact@v4
