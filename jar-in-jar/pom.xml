@@ -1,0 +1,198 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.danthe1st.mavenpackaging</groupId>
+	<artifactId>jar-in-jar</artifactId>
+	<version>1.1.0</version>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>lib</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>21</release>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- Download the jar-in-jar-loader -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>2.0.2</version>
+				<executions>
+					<execution>
+						<?m2e ignore?> <!-- Skip this execution in m2e builds as these are not for packaging -->
+						<id>download-jar-in-jar-loader</id>
+						<phase>package</phase>
+						<goals>
+							<goal>download-single</goal>
+						</goals>
+						<configuration>
+							<url>https://raw.githubusercontent.com/eclipse-jdt/eclipse.jdt.ui/refs/heads/master/org.eclipse.jdt.ui/jar-in-jar-loader.zip</url>
+							<toDir>${project.build.directory}</toDir>
+							<skipIfExists>true</skipIfExists>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Set the runtime_classpath property and unzip the jar-in-jar-loader.zip file -->
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<?m2e ignore?>
+						<id>create-dependency-list</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<exportAntProperties>true</exportAntProperties>
+							<tasks>
+									<property name="runtime_classpath" refid="maven.runtime.classpath"/>
+							</tasks>
+						</configuration>
+					</execution>
+					<execution>
+						<?m2e ignore?>
+						<id>unzip-jar-in-jar-loader</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<exportAntProperties>true</exportAntProperties>
+							<tasks>
+								<unzip
+									src="${project.build.directory}/jar-in-jar-loader.zip"
+									dest="${project.build.directory}/extract"/>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- transform the runtime_classpath from a list of absolute file paths into a space-separated list of dependencies -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.6.1</version>
+				<executions>
+					<execution>
+						<!-- 
+							transform the runtime classpath from a colon separated list of absolute paths
+							into a colon-space (": ") separated list of dependencies each dependency prefixed with lib/
+						 -->
+						<?m2e ignore?>
+						<id>prepare-classpath-var</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>regex-property</goal>
+						</goals>
+						<configuration>
+							<name>runtime_classpath.colon_with_spaces</name>
+							<value>${runtime_classpath}</value>
+							<!-- This regex matches all components of the runtime classpath except jar file _names_. -->
+							<regex>[/\\]?([^/\\:]++[/\\]++(?![^/\\][.]jar)([^/\\:.]+:/?)?)+</regex>
+							<replacement>: lib/</replacement>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- Remove the colons (:) -->
+						<?m2e ignore?>
+						<id>cleanup-classpath-var</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>regex-property</goal>
+						</goals>
+						<configuration>
+							<name>runtime_classpath.spaces</name>
+							<value>${runtime_classpath.colon_with_spaces}</value>
+							<regex>:</regex>
+							<replacement></replacement>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Copy the dependency JARs as-is - these will be included in the final JAR -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<?m2e ignore?>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/extract/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!--
+					Create both the application JAR (without dependencies)
+					and the final (executable) JAR (with the application JAR and its dependencies)
+				-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<!--
+							Create the default application JAR in the same directory as the dependency JAR
+							This could be a located somewhere else as long as it is properly included in the final JAR.
+						 -->
+						<id>default-jar</id>
+						<configuration>
+							<outputDirectory>${project.build.directory}/extract/lib</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<!--
+							Create the final executable JAR
+							This JAR consists of the following parts which are already part of the extract directory:
+							- The application JAR
+							- The dependencies of the application
+							- The (unpacked/extracted) JAR in JAR loader classes
+							
+							In addition to that, the MANIFEST.MF file must contain the following attributes::
+							- Main-Class: pointing to the main class of the JAR in JAR loader (not the application main class!)
+							- Rsrc-Main-Class: The application main class
+							- Rsrc-Class-Path: The list of nested JARs (application and dependencies) to load
+						 -->
+						 <?m2e ignore?>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>executable</classifier>
+							<classesDirectory>${project.build.directory}/extract</classesDirectory>
+							<archive>
+								<manifest>
+									<mainClass>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</mainClass>
+								</manifest>
+								<manifestEntries>
+									<Rsrc-Main-Class>io.github.danthe1st.mavenpackaging.multijar.JarInJarMain</Rsrc-Main-Class>
+									<Rsrc-Class-Path>lib/jar-in-jar-${project.version}.jar${runtime_classpath.spaces}</Rsrc-Class-Path>
+								</manifestEntries>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

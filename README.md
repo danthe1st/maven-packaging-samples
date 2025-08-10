@@ -6,16 +6,17 @@ The sample projects include the [lib](./lib) dependency which is a "normal" `jar
 
 The following table outlines the differences between the packaging methods. The JPMS column shows whether JPMS (using a module-info.java) is supported and whether it is necessary to use JPMS.
 
-|project                       |description                         |JPMS         |Java runtime|platform independent|
-|:-----------------------------|:-----------------------------------|:------------|:-----------|:-------------------|
-|[multijar](./multijar)        |multiple JAR files                  |supported    |required    |yes                 |
-|[jlink](./jlink)              |bundles minimal JRE with application|required     |included    |no                  |
-|[jpackage](./jpackage)        |installer                           |supported    |included    |no                  |
-|[fat-jar](./fat-jar)          |single JAR with all dependencies    |not supported|required    |yes                 |
-|[native-image](./native-image)|single native OS executable         |supported\*  |not needed  |no                  |
-|[exploded](./exploded)        |unpacked classes                    |supported    |required    |yes                 |
+|project                       |description                         |JPMS         |Java runtime|platform independent|single file|
+|:-----------------------------|:-----------------------------------|:------------|:-----------|:-------------------|:----------|
+|[multijar](./multijar)        |multiple JAR files                  |supported    |required    |yes                 |no         |
+|[jlink](./jlink)              |bundles minimal JRE with application|required     |included    |no                  |no         |
+|[jpackage](./jpackage)        |installer                           |supported    |included    |no                  |yes        |
+|[fat-jar](./fat-jar)          |single JAR with all dependencies    |not supported|required    |yes                 |yes        |
+|[native-image](./native-image)|single native OS executable         |supported\*  |not needed  |no                  |yes        |
+|[exploded](./exploded)        |unpacked classes                    |supported    |required    |yes                 |no         |
+|[jar-in-jar](./jar-in-jar)    |nested JAR files                    |supported\*  |required    |yes                 |yes        |
 
-\* While native-image supports JPMS, using it with the `native-maven-plugin` requires additional configuration.
+\* While it is possible to use JPMS with both `native-image` and nested JARs (jar-in-jar), doing so requires additional configuration and is not included in this repository.
 
 ### Building
 
@@ -31,5 +32,4 @@ Libraries should be packaged as thin JARs (which is the default in Maven, see [l
 ### Notable alternatives not included
 
 This repository does not include include the following packaging methods for applications:
-- nested JAR files: It is possible to distribute applications as a single JAR file containing the JAR files of dependencies instead of extracting them. This combines the advantages of [having the dependencies in a subdirectory](./multijar) and [fat JARs](./fat-jar) (including the option to use JPMS). 
 - Framework specific packaging: Frameworks like Spring Boot sometimes have their own ways of packaging applications.
