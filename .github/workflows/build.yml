@@ -44,15 +44,15 @@ jobs:
         include:
         - os: ubuntu-latest
           os_name: linux
-          jpackage_install: sudo apt install -y ./jpackage/target/package/myapp_1.0.0_amd64.deb
+          jpackage_install: sudo apt install -y ./jpackage/target/package/myapp_1.1.0_amd64.deb
           jpackage_run: /opt/myapp/bin/myapp
         - os: windows-latest
           os_name: windows
-          jpackage_install: Start-Process msiexec.exe -Wait -ArgumentList '/quiet /i jpackage\\target\\package\\myapp-1.0.0.msi'
+          jpackage_install: Start-Process msiexec.exe -Wait -ArgumentList '/quiet /i jpackage\\target\\package\\myapp-1.1.0.msi'
           jpackage_run: . "$env:LOCALAPPDATA\myapp\myapp.exe"
         - os: macos-latest
           os_name: macos
-          jpackage_install: hdiutil attach ./jpackage/target/package/myapp-1.0.0.dmg
+          jpackage_install: hdiutil attach ./jpackage/target/package/myapp-1.1.0.dmg
           jpackage_run:  /Volumes/myapp/myapp.app/Contents/MacOS/myapp
     runs-on: ${{ matrix.os }}
     steps:
