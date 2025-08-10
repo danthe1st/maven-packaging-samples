@@ -58,9 +58,9 @@
 						</goals>
 						<configuration>
 							<exportAntProperties>true</exportAntProperties>
-							<tasks>
+							<target>
 									<property name="runtime_classpath" refid="maven.runtime.classpath"/>
-							</tasks>
+							</target>
 						</configuration>
 					</execution>
 					<execution>
@@ -72,11 +72,11 @@
 						</goals>
 						<configuration>
 							<exportAntProperties>true</exportAntProperties>
-							<tasks>
+							<target>
 								<unzip
 									src="${project.build.directory}/jar-in-jar-loader.zip"
 									dest="${project.build.directory}/extract"/>
-							</tasks>
+							</target>
 						</configuration>
 					</execution>
 				</executions>
